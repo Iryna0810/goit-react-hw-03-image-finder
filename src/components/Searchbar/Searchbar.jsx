@@ -9,14 +9,11 @@ export class Searchbar extends Component {
     };
 
     handleSearchChange = event => {
-        console.log(this.state.value);
-        this.setState({ value: event.target.value.toLowerCase() });
-      
+        this.setState({ value: event.target.value.toLowerCase() });  
     }
 
     handleSubmit = event => {
         event.preventDefault();
-        console.log(this.state)
         this.props.handleSearch(this.state.value);
         this.setState({value: ''});
     }

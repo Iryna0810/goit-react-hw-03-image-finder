@@ -14,7 +14,7 @@ export class ImageGallery extends Component{
     }
 
     componentDidUpdate(prevProps, prevState) {
-        console.log('this.props >', this.props)
+
           if (prevProps.searchImages !== this.props.searchImages) {
               this.setState({ isLoading: true })
               
