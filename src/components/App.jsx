@@ -5,7 +5,8 @@ import { Searchbar } from "./Searchbar";
 export class App extends Component {
 
   state = {
-  searchImages: '',
+    searchImages: '',
+
   };
 
   handleSearch = (searchImages) => {

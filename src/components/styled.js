@@ -92,4 +92,5 @@ overflow: 'hidden';
     width: 'calc((100% - 20px) / 3)';
     border: '1px solid #eeeeee';
     objectFit:'contain';
-    transition: 'box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1)';`
+    transition: 'box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1)';
+    `
