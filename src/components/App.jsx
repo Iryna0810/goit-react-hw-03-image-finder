@@ -5,24 +5,32 @@ import { Searchbar } from "./Searchbar";
 export class App extends Component {
 
   state = {
-  
+  searchImages: '',
   };
+
+  handleSearch = (searchImages) => {
+    this.setState({ searchImages });
+  }
+
+
 
   render() {
   
     return (
     <div
-      style={{
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr',
+  gridGap: '16px',
+  paddingBottom: '24px',
         height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
         fontSize: 40,
-        color: '#010101'
+          color: '#010101'
+       
       }}
       >
-        <Searchbar/>
-        <ImageGallery />
+        <Searchbar handleSearch={ this.handleSearch} />
+        <ImageGallery searchImages = {this.state.searchImages} />
     </div>
   );  
   }
