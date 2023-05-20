@@ -11,11 +11,11 @@
         safesearch:'true',
     };
 
-    export const serchPhoto = (searchImages) => {
+    export const serchPhoto = (searchImages, page) => {
 
         const searchParameters = new URLSearchParams({
             q: searchImages,
-            page: 1,
+            page: Number(page),
             ...baseSearchParameters,
         });
 

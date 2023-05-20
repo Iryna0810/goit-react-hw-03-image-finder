@@ -1,16 +1,21 @@
 import { Component } from "react";
 import { ImageGallery } from "./ImageGallery";
 import { Searchbar } from "./Searchbar";
+import { Button } from "./styled";
 
 export class App extends Component {
 
   state = {
     searchImages: '',
-
+    page: 1,
   };
 
   handleSearch = (searchImages) => {
     this.setState({ searchImages });
+  }
+
+  handleMoreLoad = (page) => {
+    this.setState({page})
   }
 
 
@@ -31,7 +36,8 @@ export class App extends Component {
       }}
       >
         <Searchbar handleSearch={ this.handleSearch} />
-        <ImageGallery searchImages = {this.state.searchImages} />
+        <ImageGallery page={this.state.page} searchImages={this.state.searchImages} />
+        <Button handleMoreLoad={this.handleMoreLoad} page={this.state.page}>Load More</Button>
     </div>
   );  
   }

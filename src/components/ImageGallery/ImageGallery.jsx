@@ -10,15 +10,15 @@ export class ImageGallery extends Component{
         searchImages: [],
         isLoading: false,
         error: '',
-      
     }
 
     componentDidUpdate(prevProps, prevState) {
-
-          if (prevProps.searchImages !== this.props.searchImages) {
+        const { searchImages, pages } = this.props;
+        if (prevProps.searchImages !== this.props.searchImages) {
+            this.props.pages = prevProps.pages + 1;
               this.setState({ isLoading: true })
               
-                 serchPhoto(this.props.searchImages)
+                 serchPhoto(searchImages, pages)
                      .then(({ data }) => {
                           this.setState({ searchImages: data.hits })
                      })
