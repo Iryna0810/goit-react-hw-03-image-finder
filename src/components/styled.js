@@ -45,6 +45,7 @@ export const Header = styled.header`
 export const Button = styled.button`
     display: block;
     width: auto;
+    height:70px;
     text-align: center;
     vertical-align: middle;
     padding: 12px 24px;
@@ -94,3 +95,8 @@ overflow: 'hidden';
     objectFit:'contain';
     transition: 'box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1)';
     `
+export const Container = styled.div`
+     display: block;
+     justify-content: center;
+     gap: 8px;
+`

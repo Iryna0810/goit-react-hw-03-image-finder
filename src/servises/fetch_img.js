@@ -4,18 +4,19 @@
     const BASE_URL = 'https://pixabay.com/api/';
 
     const baseSearchParameters = {
-        per_page: 12,
+        
         key: API_KEY,
         image_type: 'photo',
         orientation: 'horizontal',
         safesearch:'true',
     };
 
-    export const serchPhoto = (searchImages, page) => {
+    export const serchPhoto = (searchImages, currentPage) => {
 
         const searchParameters = new URLSearchParams({
             q: searchImages,
-            page: Number(page),
+            page: Number(currentPage),
+            per_page: 12,
             ...baseSearchParameters,
         });
 

@@ -8,51 +8,61 @@ export class ImageGallery extends Component{
 
     state = {
         searchImages: [],
+        currentImages: [],
         isLoading: false,
         error: '',
+        currentPage: 1,
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        const { searchImages, pages } = this.props;
-        if (prevProps.searchImages !== this.props.searchImages) {
-            this.props.pages = prevProps.pages + 1;
-              this.setState({ isLoading: true })
-              
-                 serchPhoto(searchImages, pages)
+    async componentDidUpdate(prevProps, prevState) {
+        console.log('App componentDidUpdate')
+        const { searchImages, currentPage } = this.props;
+        if (prevProps !== this.props) {
+              this.setState({ isLoading: true })           
+                 serchPhoto(searchImages, currentPage)
                      .then(({ data }) => {
-                          this.setState({ searchImages: data.hits })
+                        //  console.log(data.hits)
+                         this.setState(prevState => {
+                             return {
+                                 searchImages: [...prevState.searchImages, ...data.hits],
+                                 currentImages: data.hits,
+                             }
+                         }                            
+                         )
                      })
-                 .catch((error) => console.log(error))
-                 .finally(() => {this.setState({ isLoading: false })}
+                     .catch((error) => this.setState({error}))
+                     .finally(() => {
+                         this.setState({ isLoading: false })
+                     }
                  )
-             }
-    }
-    
-     
-    
+        }
+  
+    }   
 
 render() {
-    const { searchImages, isLoading, showModal } = this.state;
+    const { searchImages, isLoading, showModal, error } = this.state;
     
     return (
-        
-<List className="gallery">
+      
+  <List className="gallery">
     {isLoading && <Vortex
- visible={true}
-  height="280"
-  width="280"
-  ariaLabel="vortex-loading"
-  wrapperStyle={{}}
-  wrapperClass="vortex-wrapper"
-  colors={['red', 'green', 'blue', 'yellow', 'orange', 'purple']}
+    visible={true}
+    height="280"
+    width="280"
+    ariaLabel="vortex-loading"
+    wrapperStyle={{}}
+    wrapperClass="vortex-wrapper"
+    colors={['red', 'green', 'blue', 'yellow', 'orange', 'purple']}
             />}
+            {error&& <div>Something went wrong. Try again later</div>}
+        {searchImages && searchImages.map((image) =>
+        <ImageGalleryItem onClick={this.toggleModal} showModal={showModal}  key={image.id} image={image} />       
+            )}
+
+        </List>     
+            )
+    }
     
-            {searchImages && searchImages.map((image) =>
-                <ImageGalleryItem onClick={this.toggleModal} showModal={showModal}  key={image.id} image={image} />
-               
-        )}
-        </List>)
-}
 
 };
 

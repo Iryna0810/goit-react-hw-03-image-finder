@@ -7,28 +7,28 @@ export class App extends Component {
 
   state = {
     searchImages: '',
-    page: 1,
-  };
+    currentPage: 1,
+   };
 
   handleSearch = (searchImages) => {
     this.setState({ searchImages });
   }
 
-  handleMoreLoad = (page) => {
-    this.setState({page})
-  }
-
-
+    handleMoreLoad = () => {
+    this.setState(prevState => { return { currentPage: prevState.currentPage + 1 }; }
+    );
+  }  
+ 
 
   render() {
   
     return (
     <div
         style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr',
-  gridGap: '16px',
-  paddingBottom: '24px',
+        display: 'grid',
+        gridTemplateColumns: '1fr',
+        gridGap: '16px',
+        paddingBottom: '24px',
         height: '100vh',
         fontSize: 40,
           color: '#010101'
@@ -36,14 +36,11 @@ export class App extends Component {
       }}
       >
         <Searchbar handleSearch={ this.handleSearch} />
-        <ImageGallery page={this.state.page} searchImages={this.state.searchImages} />
-        <Button handleMoreLoad={this.handleMoreLoad} page={this.state.page}>Load More</Button>
-    </div>
+        <ImageGallery handleVisible={this.handleVisible} currentPage={this.state.currentPage} searchImages={this.state.searchImages} />
+        <Button onClick={this.handleMoreLoad}>Load More</Button>
+        
+        </div>
   );  
-  }
-
-  
-
-
-  
+  }  
 };
+
