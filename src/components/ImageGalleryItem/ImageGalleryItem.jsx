@@ -24,7 +24,7 @@ export class ImageGalleryItem extends Component {
         {this.state.showModal && (<Modal onCloseModal={this.toggleModal}>
         <Item src={largeImageURL} alt=""></Item>
         </Modal>)}
-        
+
         <LiStyled onClick={this.toggleModal} key={id} className="gallery-item">
         <img src={webformatURL} alt="" />
         </LiStyled>
@@ -36,6 +36,4 @@ export class ImageGalleryItem extends Component {
 ImageGalleryItem.propTypes = {
   image: PropTypes.object.isRequired,
   toggleModal: PropTypes.func,
-    
-    
-}
+};
