@@ -88,15 +88,30 @@ display: inline-block;
 `;
 
 export const LiStyled = styled.li`
-overflow: 'hidden';
-  margin: '30px';
-    width: 'calc((100% - 20px) / 3)';
-    border: '1px solid #eeeeee';
-    objectFit:'contain';
-    transition: 'box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1)';
+  display: grid;
+  max-width: calc(100vw - 48px);
+  grid-template-columns: repeat(auto-fill, minmax(320px, fr));
+  grid-gap: 16px;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0;
+  list-style: none;
+  margin-left: auto;
+  margin-right: auto;
     `
+
 export const Container = styled.div`
      display: block;
      justify-content: center;
      gap: 8px;
+`
+
+export const Item = styled.img`
+  display: block;
+  max-width: 100%;
+  border-radius: 2px;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+  height: 260px;
+  object-fit: contain;
 `
