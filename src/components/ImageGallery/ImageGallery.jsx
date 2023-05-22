@@ -3,6 +3,7 @@ import { Component } from "react";
 import { List, Button } from '../styled'
 import { serchPhoto } from "servises/fetch_img";
 import { Vortex } from 'react-loader-spinner';
+import PropTypes from "prop-types";
 
 export class ImageGallery extends Component{
 
@@ -15,7 +16,6 @@ export class ImageGallery extends Component{
     }
 
     componentDidUpdate(prevProps, prevState) {
-
 
         const { searchImages } = this.props;
         const { currentPage } = this.state;
@@ -49,7 +49,7 @@ export class ImageGallery extends Component{
   } 
 
 render() {
-    const { searchImages, isLoading, showModal, error, currentImages } = this.state;
+    const { searchImages, isLoading, error, currentImages } = this.state;
 
     return (
     <>  
@@ -65,15 +65,18 @@ render() {
             />}
         {error&& <div>Something went wrong. Try again later</div>}
         {searchImages && searchImages.map((image) =>
-        <ImageGalleryItem onClick={this.toggleModal} showModal={showModal}  key={image.id} image={image} />       
-            )}
-        
-        </List>     
+        <ImageGalleryItem key={image.id} image={image} />)}
+    </List>     
         {currentImages.length> 0 && <Button onClick={this.handleMoreLoad}>Load More</Button>}
         </>
         )
     }
 };
+
+ImageGallery.propTypes = {
+    searchImages: PropTypes.string.isRequired,
+};
+
 
 
     

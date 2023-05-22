@@ -1,7 +1,7 @@
 // import { nanoid } from "nanoid";
 import { LiStyled } from '../styled'
-import {Modal} from '../Modal/Modal'
-
+import { Modal } from '../Modal/Modal'
+import PropTypes from "prop-types";
 import { Component } from "react";
 import {Item} from '../styled'
 
@@ -22,13 +22,20 @@ export class ImageGalleryItem extends Component {
     return (
       <>
         {this.state.showModal && (<Modal onCloseModal={this.toggleModal}>
-        
         <Item src={largeImageURL} alt=""></Item>
         </Modal>)}
-      <LiStyled onClick={this.toggleModal} key={id} className="gallery-item">
+        
+        <LiStyled onClick={this.toggleModal} key={id} className="gallery-item">
         <img src={webformatURL} alt="" />
         </LiStyled>
         </>
     )
   }
 };
+
+ImageGalleryItem.propTypes = {
+  image: PropTypes.object.isRequired,
+  toggleModal: PropTypes.func,
+    
+    
+}

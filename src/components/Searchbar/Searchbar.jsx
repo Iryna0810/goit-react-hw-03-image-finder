@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { Header, FormWrapper, Button, StyledInput } from "components/styled";
-// import css from '../'
+import PropTypes from "prop-types";
 
 export class Searchbar extends Component {
 
@@ -38,4 +38,8 @@ export class Searchbar extends Component {
             </Header>
         )
     }
-}
+};
+
+Searchbar.propTypes = {
+    handleSearch: PropTypes.func.isRequired,
+};
