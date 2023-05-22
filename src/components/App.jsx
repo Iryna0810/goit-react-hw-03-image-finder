@@ -1,14 +1,11 @@
 import { Component } from "react";
 import { ImageGallery } from "./ImageGallery";
 import { Searchbar } from "./Searchbar";
-import { Button } from "./styled";
 
 export class App extends Component {
 
   state = {
     searchImages: '',
-    currentPage: 1,
-    isVisible: false,
    };
 
  
@@ -16,15 +13,6 @@ export class App extends Component {
   handleSearch = (searchImages) => {
     this.setState({ searchImages });
   }
-
-
-    
-  // handleVisible = (data) => {
-  //     console.log(data)
-  //     if (data !== 0)
-  //       this.setState({isVisible:  true})
-
-  //   }  
   
   render() {
   
@@ -42,9 +30,7 @@ export class App extends Component {
       }}
       >
         <Searchbar handleSearch={ this.handleSearch} />
-        <ImageGallery handleVisible={this.handleVisible} currentPage={this.state.currentPage} searchImages={this.state.searchImages} />
-        
-        
+        <ImageGallery searchImages={this.state.searchImages} />       
         </div>
   );  
   }  

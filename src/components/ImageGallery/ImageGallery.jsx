@@ -23,7 +23,7 @@ export class ImageGallery extends Component{
             this.setState({ searchImages: [] })
         };
 
-        if (prevProps !== this.props || prevState.currentPage !== this.state.currentPage) {
+        if (prevProps.searchImages !== searchImages || prevState.currentPage !== currentPage) {
             this.setState({ isLoading: true }) 
                 serchPhoto(searchImages, currentPage)
                     .then(({ data }) => {    
@@ -73,8 +73,7 @@ render() {
         </>
         )
     }
-    
-
 };
+
 
     
