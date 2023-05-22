@@ -8,18 +8,27 @@ export class App extends Component {
   state = {
     searchImages: '',
     currentPage: 1,
+    isVisible: false,
    };
 
+ 
+  
   handleSearch = (searchImages) => {
     this.setState({ searchImages });
   }
 
-    handleMoreLoad = () => {
+  handleMoreLoad = () => {
     this.setState(prevState => { return { currentPage: prevState.currentPage + 1 }; }
     );
   }  
- 
+    
+  handleVisible = (data) => {
+      console.log(data)
+      if (data !== 0)
+        this.setState({isVisible:  true})
 
+    }  
+  
   render() {
   
     return (
@@ -37,7 +46,7 @@ export class App extends Component {
       >
         <Searchbar handleSearch={ this.handleSearch} />
         <ImageGallery handleVisible={this.handleVisible} currentPage={this.state.currentPage} searchImages={this.state.searchImages} />
-        <Button onClick={this.handleMoreLoad}>Load More</Button>
+        {this.state.isVisible && <Button onClick={this.handleMoreLoad}>Load More</Button>}
         
         </div>
   );  

@@ -12,39 +12,59 @@ export class ImageGallery extends Component{
         isLoading: false,
         error: '',
         currentPage: 1,
+        isVisible: true,
     }
 
-    async componentDidUpdate(prevProps, prevState) {
-        // console.log('App componentDidUpdate')
+    componentDidUpdate(prevProps, prevState) {
 
-        const { searchImages, currentPage } = this.props;
+
+        const { searchImages, currentPage, handleVisible } = this.props;
+        if (prevProps.searchImages !== this.props.searchImages) {
+            this.setState({ searchImages: [] })
+        };
+
         if (prevProps !== this.props) {
-              this.setState({ isLoading: true })           
-                await serchPhoto(searchImages, currentPage)
-                     .then(({ data }) => {
-                        //  console.log(data.hits)
-                         this.setState(prevState => {
-                             return {
-                                 searchImages: [...prevState.searchImages, ...data.hits],
-                                 currentImages: data.hits,
-                             }
-                         }                            
-                         )
-                     })
+            this.setState({ isLoading: true }) 
+            
+                serchPhoto(searchImages, currentPage)
+                    .then(({ data }) => {    
+                        if (data.hits !== [])
+                        {
+                            this.props.handleVisible(data.hits.length)
+                        }
+                        this.setState(prevState => {
+                            return {
+                                searchImages: [...prevState.searchImages, ...data.hits],
+                                currentImages: data.hits,
+                            }
+                        }             
+                        )
+                    })
+                    // .then(()=>{console.log(this.state)})
                      .catch((error) => this.setState({error}))
                      .finally(() => {
                          this.setState({ isLoading: false })
                      }
-                 )
+            )
+
+            
         }
 
-        // if ()
+        // if (this.state.currentImages !== []) {
+        //     this.props.handleVisible(true);
+        // }
   
     }   
 
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     if (this.state.searchImages.length === nextState.searchImages.length) {
+    //         return false;
+    //     }
+    // }
+
 render() {
-    const { searchImages, isLoading, showModal, error } = this.state;
-    
+    const { searchImages, isLoading, showModal, error, currentImages } = this.state;
+    // this.props.handleVisible(currentImages);
     return (
       
   <List className="gallery">
