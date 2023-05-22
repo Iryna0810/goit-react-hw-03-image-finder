@@ -15,11 +15,12 @@ export class ImageGallery extends Component{
     }
 
     async componentDidUpdate(prevProps, prevState) {
-        console.log('App componentDidUpdate')
+        // console.log('App componentDidUpdate')
+
         const { searchImages, currentPage } = this.props;
         if (prevProps !== this.props) {
               this.setState({ isLoading: true })           
-                 serchPhoto(searchImages, currentPage)
+                await serchPhoto(searchImages, currentPage)
                      .then(({ data }) => {
                         //  console.log(data.hits)
                          this.setState(prevState => {
@@ -36,6 +37,8 @@ export class ImageGallery extends Component{
                      }
                  )
         }
+
+        // if ()
   
     }   
 
@@ -54,7 +57,7 @@ render() {
     wrapperClass="vortex-wrapper"
     colors={['red', 'green', 'blue', 'yellow', 'orange', 'purple']}
             />}
-            {error&& <div>Something went wrong. Try again later</div>}
+        {error&& <div>Something went wrong. Try again later</div>}
         {searchImages && searchImages.map((image) =>
         <ImageGalleryItem onClick={this.toggleModal} showModal={showModal}  key={image.id} image={image} />       
             )}
