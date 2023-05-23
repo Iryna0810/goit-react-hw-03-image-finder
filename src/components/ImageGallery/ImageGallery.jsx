@@ -16,15 +16,36 @@ export class ImageGallery extends Component{
     }
 
     componentDidUpdate(prevProps, prevState) {
-
-        const { searchImages } = this.props;
+        const { searchImages, page } = this.props;
         const { currentPage } = this.state;
+
         if (prevProps.searchImages !== this.props.searchImages) {
-            this.setState({ searchImages: [] })
+            this.setState({
+                isLoading: true,
+                searchImages: [],
+            });
+                serchPhoto(searchImages, page)
+                    .then(({ data }) => {    
+                        this.setState(prevState => {
+                            return {
+                                searchImages: [...prevState.searchImages, ...data.hits],
+                                currentImages: data.hits,
+                            }
+                        }             
+                        )
+                    })
+                     .catch((error) => this.setState({error}))
+                     .finally(() => {
+                         this.setState({ isLoading: false })
+                     }
+            )            
+
         };
 
-        if (prevProps.searchImages !== searchImages || prevState.currentPage !== currentPage) {
-            this.setState({ isLoading: true }) 
+        if (prevState.currentPage !== this.state.currentPage) {
+               this.setState({
+                   isLoading: true,
+            }) 
                 serchPhoto(searchImages, currentPage)
                     .then(({ data }) => {    
                         this.setState(prevState => {
@@ -53,7 +74,8 @@ render() {
 
     return (
     <>  
-  <List className="gallery">
+            <List className="gallery">
+                
     {isLoading && <Vortex
     visible={true}
     height="280"
@@ -62,11 +84,15 @@ render() {
     wrapperStyle={{}}
     wrapperClass="vortex-wrapper"
     colors={['red', 'green', 'blue', 'yellow', 'orange', 'purple']}
-            />}
-        {error&& <div>Something went wrong. Try again later</div>}
+                />}
+                
+        {error && <div>Something went wrong. Try again later</div>}
+                
         {searchImages && searchImages.map((image) =>
-        <ImageGalleryItem key={image.id} image={image} />)}
-    </List>     
+            <ImageGalleryItem key={image.id} image={image} />)}
+                
+            </List>
+            
         {currentImages.length> 0 && <Button onClick={this.handleMoreLoad}>Load More</Button>}
         </>
         )

@@ -6,12 +6,13 @@ export class App extends Component {
 
   state = {
     searchImages: '',
+    page: 1,
    };
 
  
   
   handleSearch = (searchImages) => {
-    this.setState({ searchImages });
+    this.setState({searchImages});
   }
   
   render() {
@@ -30,7 +31,7 @@ export class App extends Component {
       }}
       >
         <Searchbar handleSearch={ this.handleSearch} />
-        <ImageGallery searchImages={this.state.searchImages} />       
+        <ImageGallery searchImages={this.state.searchImages} page={this.state.page} />       
         </div>
   );  
   }  
